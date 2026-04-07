@@ -1138,7 +1138,37 @@ function tCk(el,k){ck[k]=!ck[k];localStorage.setItem('lk',JSON.stringify(ck));el
 function rstCk(){ck={};localStorage.setItem('lk','{}');rCk();toast('Limpa');}
 
 // PDF
-function genPDF(){gPDF(cq);}function genPDFC(i){gPDF(C[i]);}
+function genPDF(){gPDF(cq);}function genPDFC(i){gPDF(C[i]);}function genPDF(){ gPDF(cq); }
+function genPDFC(i){ gPDF(C[i]); }
+
+function openDoc(docType){
+  switch(docType){
+    case 'proposta':
+      if(cq && cq.empresa){
+        gPDF(cq);
+      }else if(vi >= 0 && C[vi]){
+        gPDF(C[vi]);
+      }else{
+        toast('Crie um orçamento ou abra um cliente primeiro');
+      }
+      break;
+
+    case 'contrato':
+      if(vi >= 0 && C[vi]){
+        gerarContratoPDF(vi);
+      }else{
+        toast('Abra um cliente com contrato primeiro');
+      }
+      break;
+
+    case 'tabela':
+      genTabelaPDF();
+      break;
+
+    default:
+      toast('Documento desconhecido');
+  }
+}
 
 // === PREMIUM HELPERS ===
 function pdfHeader(doc,W,L,R){
