@@ -154,24 +154,38 @@ input,select,textarea{-webkit-appearance:none;-moz-appearance:none;appearance:no
   <div class="ta" id="tmw-alert" style="display:none" onclick="goTo('agenda')"><div class="tc" id="tmw-c">0</div><div class="tt" id="tmw-t"><strong>Amanhã:</strong> serviços agendados</div></div>
   <div class="fa" id="fu-alert" style="display:none" onclick="goTo('followups')"><div class="fc" id="fu-c">0</div><div class="ft"><strong>Follow-ups pendentes</strong></div></div>
 
-  <!-- Documentos Premium -->
-  <div style="padding:0 18px 10px">
-    <div style="font-size:10px;font-weight:600;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;padding-left:2px">Documentos</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-      <button onclick="openDoc('proposta')" style="background:var(--w);border:1.5px solid var(--gold);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
-        <div style="font-size:16px;margin-bottom:3px">📄</div>
-        <div style="font-size:9px;font-weight:600;color:var(--gold)">Proposta</div>
-      </button>
-      <button onclick="openDoc('tabela')" style="background:var(--w);border:1.5px solid var(--blue);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
-        <div style="font-size:16px;margin-bottom:3px">💰</div>
-        <div style="font-size:9px;font-weight:600;color:var(--blue)">Preços</div>
-      </button>
-      <button onclick="openDoc('contrato')" style="background:var(--w);border:1.5px solid var(--green);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
-        <div style="font-size:16px;margin-bottom:3px">✍️</div>
-        <div style="font-size:9px;font-weight:600;color:var(--green)">Contrato</div>
-      </button>
-    </div>
+ <!-- Documentos Premium -->
+<div style="padding:0 18px 10px">
+  <div style="font-size:10px;font-weight:600;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;padding-left:2px">Documentos</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+
+    <button onclick="openDoc('proposta')" style="background:var(--w);border:1.5px solid var(--gold);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
+      <div style="font-size:16px;margin-bottom:3px">📄</div>
+      <div style="font-size:9px;font-weight:600;color:var(--gold)">Proposta</div>
+    </button>
+
+    <button onclick="openDoc('tabela_b2b')" style="background:var(--w);border:1.5px solid var(--blue);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
+      <div style="font-size:16px;margin-bottom:3px">💰</div>
+      <div style="font-size:9px;font-weight:600;color:var(--blue)">Preços</div>
+    </button>
+
+    <button onclick="openDoc('contrato')" style="background:var(--w);border:1.5px solid var(--green);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
+      <div style="font-size:16px;margin-bottom:3px">✍️</div>
+      <div style="font-size:9px;font-weight:600;color:var(--green)">Contrato</div>
+    </button>
+
+    <button onclick="openDoc('moradias')" style="background:var(--w);border:1.5px solid #8b6d3f;border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
+      <div style="font-size:16px;margin-bottom:3px">🏠</div>
+      <div style="font-size:9px;font-weight:600;color:#8b6d3f">Moradias</div>
+    </button>
+
+    <button onclick="openDoc('pos_obra')" style="background:var(--w);border:1.5px solid var(--warn);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;box-shadow:var(--sh);font-family:inherit">
+      <div style="font-size:16px;margin-bottom:3px">🔨</div>
+      <div style="font-size:9px;font-weight:600;color:var(--warn)">Pós-Obra</div>
+    </button>
+
   </div>
+</div>
 
   <div class="acts">
     <button class="ab pr" onclick="goTo('novo')"><div class="ic"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg></div>Novo Orçamento</button>
