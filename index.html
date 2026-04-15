@@ -419,6 +419,24 @@ input,select,textarea{-webkit-appearance:none;-moz-appearance:none;appearance:no
 </div>
 
 <script>
+
+const DOCS = {
+  proposta: './documentos/proposta.pdf',
+  contrato: './documentos/contrato.pdf',
+  tabela_b2b: './documentos/tabela-b2b.pdf',
+  moradias: './documentos/moradias.pdf',
+  pos_obra: './documentos/pos-obra.pdf'
+};
+
+function openDoc(docType){
+  const url = DOCS[docType];
+  if(!url){
+    toast('Documento não encontrado');
+    return;
+  }
+  window.open(url, '_blank');
+}
+
 const DIAS=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 const DIAS_C=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
