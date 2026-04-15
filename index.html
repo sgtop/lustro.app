@@ -433,7 +433,6 @@ input,select,textarea{-webkit-appearance:none;-moz-appearance:none;appearance:no
 </div>
 
 <script>
-
 const DOCS = {
   proposta: './documentos/proposta.pdf',
   contrato: './documentos/contrato.pdf',
@@ -442,9 +441,9 @@ const DOCS = {
   pos_obra: './documentos/pos-obra.pdf'
 };
 
-function openDoc(docType){
+function openDoc(docType) {
   const url = DOCS[docType];
-  if(!url){
+  if (!url) {
     toast('Documento não encontrado');
     return;
   }
