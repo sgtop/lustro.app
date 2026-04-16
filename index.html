@@ -1571,7 +1571,24 @@ function pipeSyncFromSheet(){
     toast(`Sincronizado: ${PL.length} leads`);
   });
 }
+function openDoc(docType){
+  const docsMap = {
+    proposta: './documentos/proposta.pdf',
+    contrato: './documentos/contrato.pdf',
+    tabela: './documentos/tabela-b2b.pdf',
+    tabela_b2b: './documentos/tabela-b2b.pdf',
+    moradias: './documentos/moradias.pdf',
+    pos_obra: './documentos/pos-obra.pdf'
+  };
 
+  const url = docsMap[docType];
+  if(!url){
+    toast('Documento não encontrado');
+    return;
+  }
+
+  window.open(url, '_blank');
+}
 function testPipeSync(){
   const url=document.getElementById('c-pipe-url').value.trim();
   if(!url){toast('Cole o URL primeiro');return;}
