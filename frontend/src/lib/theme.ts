@@ -1,0 +1,31 @@
+// Theme tokens — LUSTRO premium dark
+export const T = {
+  bg: '#0a0a0a',
+  bgElev: '#141414',
+  bgCard: '#1a1a1a',
+  border: '#262626',
+  borderStrong: '#3a3a3a',
+  text: '#f5f5f5',
+  textDim: '#a8a8a8',
+  textMute: '#6b6b6b',
+  primary: '#ffffff',
+  accent: '#c9a96a',           // gold accent
+  accentSoft: '#e8d8b3',
+  warning: '#f4b400',          // amber for tomorrow alerts
+  warningBg: '#3a2c0a',
+  warningBgSoft: '#2a2010',
+  warningBorder: '#7a5d12',
+  danger: '#e85d5d',
+  success: '#4caf7a',
+  s1: 4,
+  s2: 8,
+  s3: 12,
+  s4: 16,
+  s5: 24,
+  s6: 32,
+  s7: 48,
+  r1: 6,
+  r2: 10,
+  r3: 14,
+  r4: 20,
+};

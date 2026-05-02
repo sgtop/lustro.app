@@ -1,0 +1,60 @@
+{
+  "summary": "LUSTRO Field System: 20/20 backend tests passing (clientes CRUD, visitas CRUD with filters, contratos numeração CONT-2026-XXX with confirmar_final/estado=assinado, cascade delete cliente→visitas, no ObjectId leak). Frontend Expo loads cleanly on mobile viewport, all 4 tabs render, dashboard shows correct stats, alerta amarelo amanhã visible with format '09:30 — Cliente (Localidade)', popup 1x sessão appears, 5 documentos cards present, contrato shows REF CONT-2026-XXX visível e editável, próxima referência sincroniza após finalização (verificado via API). Cliente created via UI persisted in DB. Auto-localidade do morada funciona como placeholder (extraído como 'Porto' de '4000-100 Porto').",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "documento/[type].tsx onConfirmarFinal",
+        "issue": "Alert.alert() com múltiplos botões não dispara onPress callbacks no web preview (limitação React Native Web). Em dispositivo móvel real funciona. O mesmo aplica a Alert.alert para 'Eliminar visita', 'Morada em falta' e diálogos de partilha de PDF. Considerar usar Modal customizado para fluxos críticos no web ou aceitar como limitação web-only.",
+        "testID": "doc-confirmar-final",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Hoje (dashboard) e Agenda",
+        "issues": [
+          "Listas de visitas renderizam hora/cliente/localidade em linhas separadas, não no formato single-line '15:00 — Cliente (Localidade)'. O alerta amarelo e o popup respeitam o formato pedido. Agenda mostra a linha formatada corretamente. As VisitaRow do dashboard são visualmente válidas mas tecnicamente não respeitam exatamente o formato compacto pedido — confirmar com user choice."
+        ]
+      }
+    ],
+    "react_native_issues": [
+      {
+        "component": "Vários ecrãs",
+        "issue": "Warning recorrente: 'props.pointerEvents is deprecated. Use style.pointerEvents'. Não bloqueante, mas convém migrar para style.pointerEvents nos componentes afetados (provavelmente em algum wrapper de Tabs/Touchable interno do Expo Router 6)."
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_lustro.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/lustro_results.xml"
+  ],
+  "action_items": [
+    "Considerar substituir Alert.alert (com botões e onPress) por Modal customizado React Native em fluxos críticos: doc-confirmar-final, eliminar visita, partilha PDF. Garante funcionamento idêntico web + mobile e permite testes E2E completos no preview.",
+    "Decidir se as visitas no dashboard (Hoje/Amanhã) devem renderizar exatamente '15:00 — Cliente (Localidade)' em linha única (como agenda e alerta) ou manter o layout em colunas com Waze à direita. O comportamento atual é coerente mas difere do formato literal do problem statement.",
+    "(Opcional) Quando user enche apenas 'morada' sem 'localidade', auto-fill o campo localidade no formulário de cliente em vez de só mostrar como placeholder — a localidade é guardada vazia em DB e calculada em runtime via clienteLocalidade(); funciona, mas o ideal seria persistir."
+  ],
+  "critical_code_review_comments": [
+    "server.py: estrutura limpa, todos os modelos retornam UUID e usam projection {_id:0}. ✓",
+    "Numeração de contratos: lógica correcta — só consome ao confirmar_final=True OU estado=assinado, e re-finalizar não re-consome (idempotente). ✓",
+    "Cascade delete: DELETE /clientes/{id} elimina visitas associadas. ✓",
+    "Frontend: testIDs presentes em todos os elementos críticos (cli-nome, doc-confirmar-final, alert-amanha, atalho-*, etc). ✓",
+    "templates.ts: 'Plano de Manutenção Mensal' (linha 201) e 'Transparência e Controlo' (linha 219) aparecem cada um exatamente 1x e dentro dos respetivos blocos <section>, sem duplicação no fim. ✓"
+  ],
+  "updated_files": [
+    "/app/backend/tests/__init__.py (criado)",
+    "/app/backend/tests/conftest.py (criado)",
+    "/app/backend/tests/test_lustro.py (criado, 20 testes)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "~90% (limitação RN Web Alert no preview)"},
+  "seed_data_creation": "Criado via UI: cliente 'TEST_UI Cliente Auto' (Porto). Criadas via curl: 1 visita hoje (15:00) + 1 visita amanhã (09:30) para esse cliente, usadas para validar dashboard, alerta amarelo, e formato de linha. Tests pytest fazem create→delete cleanup completo (cascade delete elimina cliente+visitas; contratos eliminados explicitamente).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend totalmente coberto por /app/backend/tests/test_lustro.py — re-executar com: pytest /app/backend/tests/test_lustro.py -v. Para frontend, o web preview do Expo tem limitação conhecida com Alert.alert(buttons) — botões com onPress callback não disparam em RN Web, apenas em iOS/Android nativo. Testar via Expo Go QR (mobile real) ou substituir por Modal customizado. Há 1 cliente residual 'TEST_Cliente Teste' no DB (ID 943d7f79...) — pode ser eliminado se necessário.",
+  "rca_of_issue": "Alert.alert no web: React Native Web v0.x não implementa Alert nativo com múltiplos botões personalizados; cai num window.alert() que ignora o array de botões. Fluxo de 'Confirmar como final' depende deste callback, logo não consegue ser testado via Playwright no preview. Solução: usar <Modal> customizado da react-native (já há precedente no popup-amanha do dashboard que funciona perfeitamente)."
+}
