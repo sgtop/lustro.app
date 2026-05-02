@@ -222,16 +222,11 @@ function Atalho({ icon, label, onPress, testID }: { icon: any; label: string; on
 function VisitaRow({
   v, clienteNome, localidade, onWaze, onPress,
 }: { v: Visita; clienteNome: string; localidade: string; onWaze: () => void; onPress: () => void }) {
+  const linha = localidade ? `${v.hora} — ${clienteNome} (${localidade})` : `${v.hora} — ${clienteNome}`;
   return (
     <View style={styles.visitaRow}>
       <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: T.s3 }}>
-          <Text style={styles.hora}>{v.hora}</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.clienteNome} numberOfLines={1}>{clienteNome}</Text>
-            {!!localidade && <Text style={styles.localidade}>{localidade}</Text>}
-          </View>
-        </View>
+        <Text style={styles.linhaVisita} numberOfLines={1}>{linha}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onWaze} style={styles.wazeBtn} testID={`waze-${v.id}`}>
         <Ionicons name="navigate" size={16} color={T.bg} />
@@ -278,6 +273,7 @@ const styles = StyleSheet.create({
   hora: { color: T.accent, fontSize: 16, fontWeight: '700', minWidth: 50 },
   clienteNome: { color: T.text, fontSize: 14, fontWeight: '600' },
   localidade: { color: T.textDim, fontSize: 12, marginTop: 1 },
+  linhaVisita: { color: T.text, fontSize: 14, fontWeight: '500' },
 
   wazeBtn: {
     backgroundColor: T.accent, paddingHorizontal: T.s3, paddingVertical: 8, borderRadius: T.r1,

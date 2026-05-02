@@ -31,7 +31,7 @@ export default function NovoCliente() {
       await api.createCliente({
         nome: nome.trim(),
         morada: morada.trim(),
-        localidade: localidade.trim(),
+        localidade: (localidade.trim() || extractLocalidade(morada)),
         contacto: contacto.trim(),
         email: email.trim(),
         nif: nif.trim(),
